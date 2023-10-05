@@ -287,10 +287,23 @@ function tan() {
 }
 ```
 - These functions perform trigonometric operations. They first retrieve the input value, convert it to radians, and then use the respective Math functions to calculate the sine, cosine, or tangent. The result is then displayed in the input field.
-  
-<iframe height=400 width=500 src="C:\Users\张嘉扬\Desktop\计算器\Gif.gif">
 
+GIF
 
+# VII.Disadvantage and Future expectation
+- **Disadvantage**:
+- Can only handle degrees: Your trigonometric functions can only handle input in degrees, not radians. This can cause problems in some scientific calculations.
+- Interface design: Although fully functional, the interface may still be improved to provide a better user experience.
+- Error handling: The current implementation does not handle error cases, such as dividing by zero or other illegal inputs.
+
+- **Future expectation**
+- Support for radians: Consider adding options to support radians to make the calculator more versatile in scientific calculations.
+- More user-friendly interface: Optimize the interface design to make it more intuitive and user-friendly. Consider adding button styles and interactive effects.
+- Error handling: Add an error handling mechanism to give a friendly prompt when a user enters an illegal value or performs an impermissible action.
+- Extended features: Consider adding more advanced features, such as logarithms, exponents, factorials, etc.
+
+# VIII.Conclusion
+Through the practice of this project, I learned how to design a simple version of web calculator, realized the visualization of web pages and the realization of functions by using HTML,CSS and JavaSript, and learned a lot about the front-end knowledge system and architecture by using Markdown language to write my own personal blog. 
 
 
 
