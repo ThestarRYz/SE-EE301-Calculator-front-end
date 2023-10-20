@@ -1,5 +1,46 @@
-body{background:#b1e5ee;}
-h3{font-family:微软雅黑;font-size: 35px;text-align: center;}
-#show input{width:610px;height:60px;font-size:30px;}
-#cuttom input{width: 100px;height: 70px;font-size: 28px;}
-#cuttom input:hover{background: lightgray;}
+body {
+    background:url(https://img1.baidu.com/it/u=1436390931,763795453&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=1082);
+}
+
+h3 {
+    font-family: 微软雅黑;
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#show input {
+    width: 770px;
+    height: 60px;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+#cuttom input {
+    width: 100px;
+    height: 70px;
+    font-size: 28px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+#cuttom input:hover {
+    background: #ddd;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.history-table th, .history-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.history-table th {
+    background-color: #f2f2f2;
+}

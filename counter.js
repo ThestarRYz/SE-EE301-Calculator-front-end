@@ -2,18 +2,13 @@ function $(id){return document.getElementById(id);}
 var str;
 var result;
 
+
 function display(str0)	
 {
 	str = document.getElementById("text");
 	str.value = str.value + str0;
 }
 
-function equals()	
-{
-	str = document.getElementById("text");
-	result = eval(str.value);
-	str.value = result;
-}
 
 function back()		
 {
@@ -52,6 +47,50 @@ function tan() {
     result = Math.tan(angle * (Math.PI / 180));
     str.value = result;
 }
+
+function sqrt() {
+    str = document.getElementById("text");
+    var number = eval(str.value);
+    result = Math.sqrt(number);
+    str.value = result;
+}
+
+function log() {
+    str = document.getElementById("text");
+    var number = eval(str.value);
+    result = Math.log10(number);
+    str.value = result;
+}
+
+function exponential() {
+    var str = document.getElementById("text").value;
+    if (str === "") {
+        document.getElementById("text").value = Math.E;
+    } else {
+        document.getElementById("text").value += Math.E;
+    }
+}
+
+function pi() {
+    var str = document.getElementById("text").value;
+    if (str === "") {
+        document.getElementById("text").value = Math.PI;
+    } else {
+        document.getElementById("text").value += Math.PI;
+    }
+}
+
+function E() {
+    var str = document.getElementById("text").value;
+    var num = parseFloat(str);
+    var result = num.toExponential();
+    document.getElementById("text").value = result;
+}
+
+
+
+
+
 
 
 

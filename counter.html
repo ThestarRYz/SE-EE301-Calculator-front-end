@@ -1,51 +1,133 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Calculator</title>
-		<link rel="stylesheet" type="text/css" href="C:\Users\张嘉扬\Desktop\计算器\counter.css" />
-		<script type="text/javascript" src="C:\Users\张嘉扬\Desktop\计算器\counter.js"></script>
-	</head>
-	<body>
-		<div id="calculator">
-			<div id="head"><h3>Simple Web Calculator</h3></div>
-			<div id="show" align="center"><input type="text" id="text" ></div>
-			<div id="cuttom">
-				<table align="center">
-					<tr>
-						<td><input type="button" value="7" onclick="display(7)"></td>
-						<td><input type="button" value="8" onclick="display(8)"></td>
-						<td><input type="button" value="9" onclick="display(9)"></td>
-						<td><input type="button" value="+" onclick="display('+')"></td>
-						<td><input type="button" value="-" onclick="display('-')"></td>
-						<td><input type="button" value="^" onclick="power()"></td>
-					</tr>
-					<tr>
-						<td><input type="button" value="4" onclick="display(4)"></td>
-						<td><input type="button" value="5" onclick="display(5)"></td>
-						<td><input type="button" value="6" onclick="display(6)"></td>
-						<td><input type="button" value="*" onclick="display('*')"></td>
-						<td><input type="button" value="/" onclick="display('/')"></td>
-						<td><input type="button" value="sin" onclick="sin()"></td>
-					</tr>
-					<tr>
-						<td><input type="button" value="1" onclick="display(1)"></td>
-						<td><input type="button" value="2" onclick="display(2)"></td>
-						<td><input type="button" value="3" onclick="display(3)"></td>
-						<td><input type="button" value="(" onclick="display('(')"></td>
-						<td><input type="button" value=")" onclick="display(')')"></td>
-						<td><input type="button" value="cos" onclick="cos()"></td>
-					</tr>
-					<tr>
-						<td><input type="button" value="." onclick="display('.')"></td>
-						<td><input type="button" value="0" onclick="display(0)"></td>
-						<td><input type="button" value="←" onclick="back()"></td>
-						<td><input type="button" value="c" onclick="reset()"></td>
-						<td><input type="button" value="=" onclick="equals()"></td>
-						<td><input type="button" value="tan" onclick="tan()"></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="C:\Users\张嘉扬\Desktop\计算器\counter.css" />
+    <script type="text/javascript" src="C:\Users\张嘉扬\Desktop\计算器\counter.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        function store(expression, result) {
+            console.log(expression, result)
+            $.ajax({
+                url: 'http://localhost:5000/api/calculator/history',
+                type: 'post',
+                data: {
+                    expression: expression,
+                    result: result
+                }
+            });
+        }
+
+        function getHistory() {
+            $.ajax({
+                url: 'http://localhost:5000/api/calculator/history',
+                type: 'get',
+                success: function (res) {
+                    console.log(res);
+                    // 创建表格
+                    var table = $('<table>').addClass('history-table');
+
+                    // 创建表头
+                    var headerRow = $('<tr>');
+                    headerRow.append($('<th>').text('ID'));
+                    headerRow.append($('<th>').text('Formula'));
+                    headerRow.append($('<th>').text('Result'));
+                    table.append(headerRow);
+
+                    // 填充数据
+                    for (var i = 0; i < res.length; i++) {
+                        var row = $('<tr>');
+                        row.append($('<td>').text(res[i].id));
+                        row.append($('<td>').text(res[i].formula));
+                        row.append($('<td>').text(res[i].result));
+                        table.append(row);
+                    }
+
+                    // 将表格添加到页面中
+                    $('#history').html('');
+                    $('#history').append(table);
+                }
+            });
+        }
+
+        function getAnswer() {
+            $.ajax({
+                url: 'http://localhost:5000/api/calculator/history',
+                type: 'get',
+                success: function (res) {
+                    console.log(res["data"]["history"][0]["result"]);
+                    var value = res["data"]["history"][0]["result"];
+                    $('#text').val(value); // 将结果放到输入框中
+                }
+            });
+        }
+
+
+        function equals() {
+            str = document.getElementById("text");
+            result = eval(str.value);
+            store(str.value, result);
+            str.value = result;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="calculator">
+        <div id="head">
+            <h3>Simple Web Calculator</h3>
+        </div>
+        <div id="show" align="center"><input type="text" id="text"></div>
+        <div id="cuttom">
+            <table align="center">
+                <tr>
+                    <td><input type="button" value="%" onclick="display('%')"></td>
+                    <td><input type="button" value="√" onclick="sqrt()"></td>
+                    <td><input type="button" value="log10" onclick="log()"></td>
+                    <td><input type="button" value="e" onclick="exponential()"></td>
+                    <td><input type="button" value="π" onclick="pi()"></td>
+                    <td><input type="button" value="E" onclick="E()"></td>
+                    <td><input type="button" value="History" onclick="getHistory()">
+                    <td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="7" onclick="display(7)"></td>
+                    <td><input type="button" value="8" onclick="display(8)"></td>
+                    <td><input type="button" value="9" onclick="display(9)"></td>
+                    <td><input type="button" value="+" onclick="display('+')"></td>
+                    <td><input type="button" value="-" onclick="display('-')"></td>
+                    <td><input type="button" value="^" onclick="power()"></td>
+                    <td><input type="button" value="ANS" onclick="getAnswer()"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="4" onclick="display(4)"></td>
+                    <td><input type="button" value="5" onclick="display(5)"></td>
+                    <td><input type="button" value="6" onclick="display(6)"></td>
+                    <td><input type="button" value="*" onclick="display('*')"></td>
+                    <td><input type="button" value="/" onclick="display('/')"></td>
+                    <td><input type="button" value="sin" onclick="sin()"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="1" onclick="display(1)"></td>
+                    <td><input type="button" value="2" onclick="display(2)"></td>
+                    <td><input type="button" value="3" onclick="display(3)"></td>
+                    <td><input type="button" value="(" onclick="display('(')"></td>
+                    <td><input type="button" value=")" onclick="display(')')"></td>
+                    <td><input type="button" value="cos" onclick="cos()"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="." onclick="display('.')"></td>
+                    <td><input type="button" value="0" onclick="display(0)"></td>
+                    <td><input type="button" value="←" onclick="back()"></td>
+                    <td><input type="button" value="c" onclick="reset()"></td>
+                    <td><input type="button" value="=" onclick="equals()"></td>
+                    <td><input type="button" value="tan" onclick="tan()"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
 </html>
